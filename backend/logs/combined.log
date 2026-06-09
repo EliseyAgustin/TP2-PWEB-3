@@ -1,0 +1,61 @@
+[2026-04-15 21:07:41] INFO: Servidor corriendo en http://localhost:3000
+[2026-04-15 21:07:56] INFO: Servidor corriendo en http://localhost:3000
+[2026-04-15 21:07:58] INFO: Usuario "admin" inició sesión
+[2026-04-15 21:07:58] WARN: Acceso sin token desde IP: ::1 -> GET /
+[2026-04-15 21:07:58] WARN: Acceso sin token desde IP: ::1 -> GET /low-stock
+[2026-04-15 21:07:58] WARN: Acceso sin token desde IP: ::1 -> POST /
+[2026-04-15 21:07:58] WARN: Acceso sin token desde IP: ::1 -> GET /
+[2026-04-15 21:08:20] INFO: Usuario "admin" inició sesión
+[2026-04-15 21:08:20] WARN: Acceso sin token desde IP: ::1 -> GET /
+[2026-04-15 21:08:20] INFO: Movimiento: entrada de 20 uds. de "Lavandina 1L" por "admin". Stock: 8 -> 28
+[2026-04-15 21:08:20] INFO: Usuario "encargado" inició sesión
+[2026-04-15 21:08:20] WARN: Acceso denegado: usuario "encargado" (rol: user) intentó acceder a recurso de admin
+[2026-04-15 21:16:19] INFO: Servidor corriendo en http://localhost:3000
+[2026-04-15 22:27:29] INFO: Servidor corriendo en http://localhost:3000
+[2026-04-15 22:31:05] WARN: Acceso sin token desde IP: ::1 -> POST /register
+[2026-04-15 22:31:18] WARN: Acceso sin token desde IP: ::1 -> POST /
+[2026-04-15 22:35:06] INFO: Usuario "admin" inició sesión
+[2026-04-15 22:38:34] INFO: Producto "Jabón de tocador" creado por "admin"
+[2026-04-15 22:38:35] INFO: Servidor corriendo en http://localhost:3000
+[2026-04-22 18:18:19] INFO: Servidor corriendo en http://localhost:3000
+[2026-04-22 18:21:56] WARN: Acceso sin token desde IP: ::1 -> GET /low-stock
+[2026-04-22 18:23:56] WARN: Login fallido para "admin" desde IP: ::1
+[2026-04-22 18:24:24] INFO: Servidor corriendo en http://localhost:3000
+[2026-04-22 18:25:06] INFO: Servidor corriendo en http://localhost:3000
+[2026-04-22 18:25:30] INFO: Usuario "admin" inició sesión
+[2026-04-22 18:28:18] INFO: Usuario "admin" inició sesión
+[2026-05-06 11:17:32] INFO: Servidor corriendo en http://localhost:3000
+[2026-05-06 11:22:22] INFO: Servidor corriendo en http://localhost:3000
+[2026-05-06 11:22:41] INFO: Usuario "admin" inició sesión
+[2026-05-06 11:23:50] WARN: Acceso sin token desde IP: ::1 -> POST /
+[2026-05-06 11:24:06] INFO: Usuario "admin" inició sesión
+[2026-05-06 11:24:29] INFO: Usuario "admin" inició sesión
+[2026-05-06 11:54:52] INFO: Servidor corriendo en http://localhost:3000
+[2026-05-06 11:56:28] INFO: Usuario "admin" inició sesión
+[2026-05-06 11:56:39] INFO: Usuario "admin" inició sesión
+[2026-05-06 12:10:26] INFO: Movimiento: entrada de 20 uds. de "Lavandina 1L" por "admin". Stock: 28 -> 48
+[2026-05-06 12:10:26] INFO: Servidor corriendo en http://localhost:3000
+[2026-05-06 12:11:19] INFO: Movimiento: entrada de 20 uds. de "Lavandina 1L" por "admin". Stock: 48 -> 68
+[2026-05-06 12:11:20] INFO: Servidor corriendo en http://localhost:3000
+[2026-05-06 12:42:40] INFO: Usuario "encargado" inició sesión
+[2026-05-06 12:44:54] INFO: Usuario "encargado" inició sesión
+[2026-05-06 12:45:31] WARN: Acceso denegado: usuario "encargado" (rol: user) intentó acceder a recurso de admin
+[2026-05-06 12:46:58] WARN: Acceso denegado: usuario "encargado" (rol: user) intentó acceder a recurso de admin
+[2026-05-06 13:38:40] INFO: Servidor corriendo en http://localhost:3000
+[2026-05-06 13:39:29] INFO: Usuario "admin" inició sesión
+[2026-05-06 13:41:50] WARN: Login fallido para "user" desde IP: ::1
+[2026-05-06 13:42:27] INFO: Usuario "encargado" inició sesión
+[2026-05-06 13:48:57] INFO: Usuario "encargado" inició sesión
+[2026-05-06 13:51:57] WARN: Acceso denegado: usuario "encargado" (rol: user) intentó acceder a recurso de admin
+[2026-05-06 18:40:15] INFO: Servidor corriendo en http://localhost:3000
+[2026-05-06 18:40:20] INFO: Usuario "admin" inició sesión
+[2026-05-06 18:42:18] INFO: Producto "Escoba" creado por "admin"
+[2026-05-06 18:42:18] INFO: Servidor corriendo en http://localhost:3000
+[2026-05-06 18:43:15] INFO: Usuario "encargado" inició sesión
+[2026-05-06 18:43:52] WARN: Acceso denegado: usuario "encargado" (rol: user) intentó acceder a recurso de admin
+[2026-05-06 19:22:27] INFO: Servidor corriendo en http://localhost:3000
+[2026-05-06 19:23:10] INFO: Usuario "admin" inició sesión
+[2026-05-06 19:24:31] INFO: Producto "Escoba" creado por "admin"
+[2026-05-06 19:24:32] INFO: Servidor corriendo en http://localhost:3000
+[2026-06-09 11:44:02] INFO: Servidor corriendo en http://localhost:3000
+[2026-06-09 11:47:26] INFO: Servidor corriendo en http://localhost:3000
