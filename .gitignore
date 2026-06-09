@@ -1,2 +1,6 @@
 .env
+*.db
+backend/logs/*.log
 .claude/
+docs/
+.vscode/
