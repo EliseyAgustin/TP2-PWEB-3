@@ -1,0 +1,7 @@
+{
+  "name": "stock-almacen-frontend",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "npx http-server . -p 5500 -o /login.html"
+  }
+}
