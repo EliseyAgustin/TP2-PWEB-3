@@ -1,4 +1,7 @@
-const SKIP_FIELDS = ['password'];
+// Middleware de sanitización para prevenir XSS
+// Escapa caracteres HTML peligrosos en los inputs de tipo string
+
+const SKIP_FIELDS = ['password']; // No sanitizar campos sensibles que no se muestran
 
 const sanitizeString = (str) => {
   return str
