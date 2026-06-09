@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Categorías — Stock Almacén</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <aside id="sidebar" class="sidebar"></aside>
+    <main class="main-content">
+
+      <div class="page-header">
+        <h1>Categorías</h1>
+      </div>
+
+      <div id="page-alert" class="alert alert-error"></div>
+
+      <!-- Formulario solo admin -->
+      <div id="create-form-section" class="section-card hidden">
+        <div class="section-title">Nueva categoría</div>
+        <form id="category-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="c-name">Nombre *</label>
+              <input type="text" id="c-name" class="form-control" maxlength="50" placeholder="Ej: Limpieza">
+            </div>
+            <div class="form-group">
+              <label for="c-description">Descripción</label>
+              <input type="text" id="c-description" class="form-control" placeholder="Opcional">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Crear categoría</button>
+        </form>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Creada</th>
+              <th id="actions-header" class="hidden">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="categories-tbody">
+            <tr><td colspan="4" class="loading">Cargando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/pages/categories.js"></script>
+</body>
+</html>

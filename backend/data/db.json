@@ -1,0 +1,185 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "email": "admin@almacen.com",
+      "password": "$2a$10$0r1ekSVy4l/6Fi4yQRORv.GOozJmcwNqP9D0lylKaJG9nXBV6Eqey",
+      "role": "admin",
+      "created_at": "2026-04-16T00:07:41.357Z"
+    },
+    {
+      "id": 2,
+      "username": "encargado",
+      "email": "encargado@almacen.com",
+      "password": "$2a$10$qMPuLmAWs59e.DGgBdMF3.2Rl54VDETAixMm1zHweE031g06mNfHm",
+      "role": "user",
+      "created_at": "2026-04-16T00:07:41.358Z"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Limpieza",
+      "description": "Productos de limpieza e higiene",
+      "created_at": "2026-04-16T00:07:41.358Z"
+    },
+    {
+      "id": 2,
+      "name": "Alimentos",
+      "description": "Productos alimenticios no perecederos",
+      "created_at": "2026-04-16T00:07:41.358Z"
+    },
+    {
+      "id": 3,
+      "name": "Ferretería",
+      "description": "Herramientas y materiales de construcción",
+      "created_at": "2026-04-16T00:07:41.358Z"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Detergente 1L",
+      "description": "Detergente líquido para vajilla",
+      "category_id": 1,
+      "quantity": 60,
+      "min_stock": 10,
+      "price": 250,
+      "created_at": "2026-04-16T00:07:41.358Z"
+    },
+    {
+      "id": 2,
+      "name": "Harina 1kg",
+      "description": "Harina 000 para repostería",
+      "category_id": 2,
+      "quantity": 100,
+      "min_stock": 20,
+      "price": 180,
+      "created_at": "2026-04-16T00:07:41.358Z"
+    },
+    {
+      "id": 3,
+      "name": "Martillo",
+      "description": "Martillo de carpintero 500g",
+      "category_id": 3,
+      "quantity": 15,
+      "min_stock": 5,
+      "price": 1500,
+      "created_at": "2026-04-16T00:07:41.358Z"
+    },
+    {
+      "id": 4,
+      "name": "Lavandina 1L",
+      "description": "Lavandina concentrada",
+      "category_id": 1,
+      "quantity": 28,
+      "min_stock": 15,
+      "price": 320,
+      "created_at": "2026-04-16T00:07:41.358Z"
+    },
+    {
+      "id": 5,
+      "name": "Aceite 900ml",
+      "description": "Aceite de girasol",
+      "category_id": 2,
+      "quantity": 60,
+      "min_stock": 20,
+      "price": 890,
+      "created_at": "2026-04-16T00:07:41.358Z"
+    },
+    {
+      "id": 6,
+      "name": "Jabón de tocador",
+      "description": "Jabón en barra 120g",
+      "category_id": 1,
+      "quantity": 10,
+      "min_stock": 5,
+      "price": 850,
+      "created_at": "2026-04-16T01:38:34.516Z"
+    },
+    {
+      "id": 7,
+      "name": "Escoba",
+      "description": "Escoba de paja",
+      "category_id": 1,
+      "quantity": 20,
+      "min_stock": 5,
+      "price": 450,
+      "created_at": "2026-05-04T17:32:45.549Z"
+    },
+    {
+      "id": 8,
+      "name": "Escoba",
+      "description": "Escoba de paja",
+      "category_id": 1,
+      "quantity": 20,
+      "min_stock": 5,
+      "price": 450,
+      "created_at": "2026-05-04T18:02:09.323Z"
+    },
+    {
+      "id": 9,
+      "name": "Escoba",
+      "description": "Escoba de paja",
+      "category_id": 1,
+      "quantity": 20,
+      "min_stock": 5,
+      "price": 450,
+      "created_at": "2026-05-04T18:17:32.968Z"
+    }
+  ],
+  "movements": [
+    {
+      "id": 1,
+      "product_id": 4,
+      "type": "entrada",
+      "quantity": 20,
+      "description": "Reposición",
+      "user_id": 1,
+      "created_at": "2026-04-16T00:08:20.830Z"
+    },
+    {
+      "id": 2,
+      "product_id": 1,
+      "type": "entrada",
+      "quantity": 10,
+      "description": "Reposición de mercadería",
+      "user_id": 1,
+      "created_at": "2026-05-04T18:23:07.170Z"
+    },
+    {
+      "id": 3,
+      "product_id": 1,
+      "type": "salida",
+      "quantity": 5,
+      "description": "Venta al cliente",
+      "user_id": 1,
+      "created_at": "2026-05-04T18:23:19.286Z"
+    },
+    {
+      "id": 4,
+      "product_id": 1,
+      "type": "entrada",
+      "quantity": 10,
+      "description": "Reposición de mercadería",
+      "user_id": 1,
+      "created_at": "2026-05-04T18:23:29.364Z"
+    },
+    {
+      "id": 5,
+      "product_id": 1,
+      "type": "salida",
+      "quantity": 5,
+      "description": "Venta al cliente",
+      "user_id": 1,
+      "created_at": "2026-05-04T18:23:49.155Z"
+    }
+  ],
+  "counters": {
+    "users": 2,
+    "categories": 3,
+    "products": 9,
+    "movements": 5
+  }
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Stock Almacén</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <aside id="sidebar" class="sidebar"></aside>
+    <main class="main-content">
+
+      <div class="page-header">
+        <h1>Dashboard</h1>
+      </div>
+
+      <div id="low-stock-alert" class="alert alert-warning"></div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="total-products">—</div>
+          <div class="stat-label">Productos en stock</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="low-stock-count" style="color:var(--warning)">—</div>
+          <div class="stat-label">Con stock bajo</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="total-movements">—</div>
+          <div class="stat-label">Movimientos registrados</div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-title">Últimos movimientos</div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Tipo</th>
+                <th>Cantidad</th>
+                <th>Usuario</th>
+                <th>Fecha</th>
+              </tr>
+            </thead>
+            <tbody id="recent-movements">
+              <tr><td colspan="5" class="loading">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/pages/dashboard.js"></script>
+</body>
+</html>
