@@ -7,130 +7,70 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
-    /* ── Background orbs ── */
     .login-bg {
-      position: fixed;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 0;
+      position: fixed; inset: 0; overflow: hidden;
+      pointer-events: none; z-index: 0;
     }
-    #bg-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-    }
-    .bg-orb {
-      position: absolute;
-      border-radius: 50%;
-      will-change: transform, opacity;
-      opacity: 0;
-    }
+    #bg-canvas { position:absolute; inset:0; width:100%; height:100%; }
+
+    .orb-wrap { position:absolute; inset:0; pointer-events:none; will-change:transform; }
+    .bg-orb   { position:absolute; border-radius:50%; will-change:transform,opacity; opacity:0; }
+
     .bg-orb-1 {
-      width: 820px; height: 820px;
+      width:820px; height:820px;
       background: radial-gradient(circle at 40% 40%, rgba(99,102,241,0.45) 0%, transparent 65%);
-      filter: blur(90px);
-      top: -380px; left: -220px;
+      filter:blur(90px); top:-380px; left:-220px;
     }
     .bg-orb-2 {
-      width: 700px; height: 700px;
-      background: radial-gradient(circle at 60% 60%, rgba(167,139,250,0.4) 0%, transparent 65%);
-      filter: blur(100px);
-      bottom: -320px; right: -180px;
+      width:700px; height:700px;
+      background: radial-gradient(circle at 60% 60%, rgba(167,139,250,0.40) 0%, transparent 65%);
+      filter:blur(100px); bottom:-320px; right:-180px;
     }
     .bg-orb-3 {
-      width: 480px; height: 480px;
+      width:480px; height:480px;
       background: radial-gradient(circle at 50% 50%, rgba(34,211,238,0.22) 0%, transparent 65%);
-      filter: blur(80px);
-      bottom: -80px; left: -60px;
+      filter:blur(80px); bottom:-80px; left:-60px;
     }
     .bg-orb-4 {
-      width: 360px; height: 360px;
+      width:360px; height:360px;
       background: radial-gradient(circle at 50% 50%, rgba(244,114,182,0.18) 0%, transparent 65%);
-      filter: blur(70px);
-      top: 15%; right: 8%;
+      filter:blur(70px); top:15%; right:8%;
     }
 
-    /* ── Login page above background ── */
-    .login-page {
-      position: relative;
-      z-index: 1;
-    }
-    /* Remove default pseudo-element glow from style.css */
+    .login-page { position: relative; z-index: 1; }
     .login-page::before { display: none; }
-
-    /* ── Login card ── */
-    .login-logo-icon {
-      font-size: 2rem;
-      color: var(--accent);
-      display: inline-block;
-    }
-
+    .login-logo-icon { font-size:2rem; color:var(--accent); display:inline-block; }
     .login-divider {
-      display: flex;
-      align-items: center;
-      gap: var(--sp-3);
-      margin-bottom: var(--sp-6);
+      display:flex; align-items:center; gap:var(--sp-3); margin-bottom:var(--sp-6);
     }
     .login-divider::before,
-    .login-divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border-default);
-    }
+    .login-divider::after { content:''; flex:1; height:1px; background:var(--border-default); }
     .login-divider span {
-      color: var(--text-muted);
-      font-size: var(--text-xs);
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+      color:var(--text-muted); font-size:var(--text-xs); font-weight:500;
+      text-transform:uppercase; letter-spacing:0.06em;
     }
-
-    .field-icon-wrap { position: relative; }
-    .field-icon-wrap .form-control { padding-left: 2.5rem; }
-    .field-icon-wrap .field-icon {
-      position: absolute;
-      left: var(--sp-3);
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      pointer-events: none;
-      transition: color var(--t-base);
-    }
-    .field-icon-wrap .form-control:focus ~ .field-icon { color: var(--accent); }
-
-    #login-btn i { transition: transform 0.3s var(--ease-out); }
-    #login-btn:hover i { transform: translateX(4px); }
+    #login-btn i { transition:transform .3s var(--ease-out); }
+    #login-btn:hover i { transform:translateX(4px); }
   </style>
 </head>
 <body>
 
-  <!-- Animated background -->
   <div class="login-bg" aria-hidden="true">
     <canvas id="bg-canvas"></canvas>
-    <div class="bg-orb bg-orb-1"></div>
-    <div class="bg-orb bg-orb-2"></div>
-    <div class="bg-orb bg-orb-3"></div>
-    <div class="bg-orb bg-orb-4"></div>
+    <div class="orb-wrap" id="wrap-1"><div class="bg-orb bg-orb-1"></div></div>
+    <div class="orb-wrap" id="wrap-2"><div class="bg-orb bg-orb-2"></div></div>
+    <div class="orb-wrap" id="wrap-3"><div class="bg-orb bg-orb-3"></div></div>
+    <div class="orb-wrap" id="wrap-4"><div class="bg-orb bg-orb-4"></div></div>
   </div>
 
   <div class="login-page">
     <main id="main-content" class="login-card" role="main">
-
-      <!-- Logo -->
       <div class="login-logo-wrap" id="anim-logo">
         <span class="login-logo-icon"><i class="fa-solid fa-warehouse" aria-hidden="true"></i></span>
         <span class="login-logo">StockApp</span>
       </div>
       <p class="login-subtitle" id="anim-subtitle">Sistema de gestión de stock</p>
-
-      <div class="login-divider" id="anim-divider">
-        <span>Acceso seguro</span>
-      </div>
-
+      <div class="login-divider" id="anim-divider"><span>Acceso seguro</span></div>
       <div id="login-alert" class="alert alert-error" role="alert" aria-live="assertive"></div>
 
       <form id="login-form" novalidate>
@@ -140,35 +80,27 @@
             Usuario
           </label>
           <input type="text" id="username" class="form-control"
-            placeholder="Tu nombre de usuario"
-            autocomplete="username"
-            required aria-required="true"
-            aria-describedby="username-error">
+            placeholder="Tu nombre de usuario" autocomplete="username"
+            required aria-required="true" aria-describedby="username-error">
           <div id="username-error" class="text-danger mt-1" role="alert" style="display:none;"></div>
         </div>
-
         <div class="form-group" id="anim-field-2">
           <label for="password">
             <i class="fa-solid fa-lock" aria-hidden="true" style="margin-right:4px;font-size:.8rem;"></i>
             Contraseña
           </label>
           <input type="password" id="password" class="form-control"
-            placeholder="Tu contraseña"
-            autocomplete="current-password"
-            required aria-required="true"
-            aria-describedby="password-error">
+            placeholder="Tu contraseña" autocomplete="current-password"
+            required aria-required="true" aria-describedby="password-error">
           <div id="password-error" class="text-danger mt-1" role="alert" style="display:none;"></div>
         </div>
-
         <div id="anim-btn">
           <button type="submit" id="login-btn" class="btn btn-primary btn-lg btn-full"
             style="margin-top:var(--sp-2);gap:var(--sp-3);">
-            Iniciar sesión
-            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            Iniciar sesión <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
           </button>
         </div>
       </form>
-
     </main>
   </div>
 
@@ -177,15 +109,15 @@
   <script src="js/api.js"></script>
   <script src="js/pages/login.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
   <script>
   document.addEventListener('DOMContentLoaded', () => {
 
-    /* ═══════════════════════════════════════════
-       CANVAS CONSTELLATION
-    ═══════════════════════════════════════════ */
+    /* ══════════════════════════════════════════
+       CANVAS SETUP
+    ══════════════════════════════════════════ */
     const canvas = document.getElementById('bg-canvas');
     const ctx    = canvas.getContext('2d');
-
     function resize() {
       canvas.width  = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -193,49 +125,216 @@
     resize();
     window.addEventListener('resize', resize);
 
-    const PALETTE = [
-      [129, 140, 248],   // indigo-400
-      [99,  102, 241],   // indigo-500
-      [167, 139, 250],   // violet-400
-      [139,  92, 246],   // violet-500
-      [96,  165, 250],   // blue-400
-      [34,  211, 238],   // cyan-400
+
+    /* ══════════════════════════════════════════
+       3D MATH
+    ══════════════════════════════════════════ */
+    function rotatePoint(x, y, z, rx, ry, rz) {
+      let y1 = y * Math.cos(rx) - z * Math.sin(rx);
+      let z1 = y * Math.sin(rx) + z * Math.cos(rx);
+      let x2 =  x * Math.cos(ry) + z1 * Math.sin(ry);
+      let z2 = -x * Math.sin(ry) + z1 * Math.cos(ry);
+      let x3 = x2 * Math.cos(rz) - y1 * Math.sin(rz);
+      let y3 = x2 * Math.sin(rz) + y1 * Math.cos(rz);
+      return [x3, y3, z2];
+    }
+
+    function project(x, y, z, fov) {
+      const d = fov / (z + fov);
+      return { x: x * d, y: y * d, z };
+    }
+
+
+    /* ══════════════════════════════════════════
+       SHAPE TEMPLATES
+    ══════════════════════════════════════════ */
+    const CUBE_V = [
+      [-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],
+      [-1,-1, 1],[1,-1, 1],[1,1, 1],[-1,1, 1]
+    ];
+    const CUBE_E = [
+      [0,1],[1,2],[2,3],[3,0],
+      [4,5],[5,6],[6,7],[7,4],
+      [0,4],[1,5],[2,6],[3,7]
     ];
 
-    const NUM_P = 68;
-    const MAX_D = 125;
+    const OCT_V = [[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]];
+    const OCT_E = [
+      [0,2],[0,3],[0,4],[0,5],
+      [1,2],[1,3],[1,4],[1,5],
+      [2,4],[2,5],[3,4],[3,5]
+    ];
 
+    const TET_V = [
+      [0, 1, 0],
+      [0.9428, -0.333, 0],
+      [-0.4714, -0.333,  0.8165],
+      [-0.4714, -0.333, -0.8165]
+    ];
+    const TET_E = [[0,1],[0,2],[0,3],[1,2],[1,3],[2,3]];
+
+    // Elongated diamond
+    const DIA_V = [[0,1.6,0],[0,-1.6,0],[1,0,0],[-1,0,0],[0,0,1],[0,0,-1]];
+    const DIA_E = [
+      [0,2],[0,3],[0,4],[0,5],
+      [1,2],[1,3],[1,4],[1,5],
+      [2,4],[2,5],[3,4],[3,5]
+    ];
+
+    // Icosahedron
+    const PHI = (1 + Math.sqrt(5)) / 2;
+    const ICO_V = [
+      [-1,PHI,0],[1,PHI,0],[-1,-PHI,0],[1,-PHI,0],
+      [0,-1,PHI],[0,1,PHI],[0,-1,-PHI],[0,1,-PHI],
+      [PHI,0,-1],[PHI,0,1],[-PHI,0,-1],[-PHI,0,1]
+    ].map(([x,y,z]) => { const n=Math.sqrt(x*x+y*y+z*z); return [x/n,y/n,z/n]; });
+    const ICO_E = [
+      [0,1],[0,5],[0,7],[0,10],[0,11],
+      [1,5],[1,7],[1,8],[1,9],
+      [2,3],[2,4],[2,6],[2,10],[2,11],
+      [3,4],[3,6],[3,8],[3,9],
+      [4,5],[4,9],[4,11],
+      [5,9],[5,11],
+      [6,7],[6,8],[6,10],
+      [7,8],[7,10],
+      [8,9],[9,11],[10,11]
+    ];
+
+
+    /* ══════════════════════════════════════════
+       SCENE — shapes near edges, away from center card
+    ══════════════════════════════════════════ */
+    const PALETTE = [
+      [129,140,248],[99,102,241],[167,139,250],
+      [139,92,246],[96,165,250],[34,211,238],[244,114,182]
+    ];
+
+    const SHAPES = [
+      // top-left
+      { v:CUBE_V, e:CUBE_E, s:50, px:0.08, py:0.13,
+        rx:0.4, ry:0.7, rz:0.2, drx:0.004, dry:0.007, drz:0.002,
+        col:PALETTE[0], op:0.42, fp:0.0, fs:0.0012 },
+
+      // bottom-left
+      { v:TET_V, e:TET_E, s:38, px:0.14, py:0.82,
+        rx:0.9, ry:0.3, rz:0.6, drx:0.007, dry:0.004, drz:0.005,
+        col:PALETTE[5], op:0.36, fp:2.0, fs:0.0015 },
+
+      // top-right
+      { v:OCT_V, e:OCT_E, s:54, px:0.90, py:0.11,
+        rx:0.5, ry:1.0, rz:0.3, drx:0.005, dry:0.006, drz:0.003,
+        col:PALETTE[3], op:0.40, fp:1.1, fs:0.0011 },
+
+      // bottom-right
+      { v:ICO_V, e:ICO_E, s:34, px:0.82, py:0.80,
+        rx:0.2, ry:0.5, rz:0.8, drx:0.003, dry:0.008, drz:0.004,
+        col:PALETTE[1], op:0.32, fp:3.3, fs:0.0014 },
+
+      // mid-left
+      { v:DIA_V, e:DIA_E, s:44, px:0.04, py:0.50,
+        rx:0.8, ry:0.2, rz:0.4, drx:0.006, dry:0.003, drz:0.007,
+        col:PALETTE[6], op:0.32, fp:0.7, fs:0.0016 },
+
+      // mid-right
+      { v:TET_V, e:TET_E, s:46, px:0.95, py:0.47,
+        rx:0.3, ry:0.9, rz:0.1, drx:0.005, dry:0.005, drz:0.005,
+        col:PALETTE[4], op:0.34, fp:1.8, fs:0.0013 },
+
+      // top-center small
+      { v:CUBE_V, e:CUBE_E, s:22, px:0.50, py:0.04,
+        rx:1.2, ry:0.4, rz:0.9, drx:0.009, dry:0.005, drz:0.004,
+        col:PALETTE[2], op:0.28, fp:4.0, fs:0.0017 },
+
+      // bottom-center small
+      { v:OCT_V, e:OCT_E, s:27, px:0.51, py:0.94,
+        rx:0.6, ry:1.3, rz:0.2, drx:0.004, dry:0.009, drz:0.006,
+        col:PALETTE[0], op:0.26, fp:2.5, fs:0.0010 },
+    ];
+
+
+    /* ══════════════════════════════════════════
+       DRAW SHAPE
+    ══════════════════════════════════════════ */
+    function drawShape(sh, fade, t) {
+      const cx  = sh.px * canvas.width;
+      const cy  = sh.py * canvas.height + Math.sin(t * sh.fs + sh.fp) * 20;
+      const fov = 260;
+      const [r,g,b] = sh.col;
+      const alpha   = sh.op * Math.min(1, fade * 1.8);
+
+      // project vertices
+      const proj = sh.v.map(([vx,vy,vz]) => {
+        const [rx2,ry2,rz2] = rotatePoint(vx*sh.s, vy*sh.s, vz*sh.s, sh.rx, sh.ry, sh.rz);
+        return project(rx2, ry2, rz2, fov);
+      });
+
+      // advance rotation
+      sh.rx += sh.drx; sh.ry += sh.dry; sh.rz += sh.drz;
+
+      // draw edges
+      sh.e.forEach(([i, j]) => {
+        const a  = proj[i];
+        const bP = proj[j];
+        const depth = 0.4 + 0.6 * Math.max(0, ((a.z + bP.z) / 2 + sh.s) / (sh.s * 2));
+
+        // glow
+        ctx.beginPath();
+        ctx.moveTo(a.x + cx, a.y + cy);
+        ctx.lineTo(bP.x + cx, bP.y + cy);
+        ctx.strokeStyle = `rgba(${r},${g},${b},${alpha * depth * 0.25})`;
+        ctx.lineWidth = 5;
+        ctx.stroke();
+
+        // core
+        ctx.beginPath();
+        ctx.moveTo(a.x + cx, a.y + cy);
+        ctx.lineTo(bP.x + cx, bP.y + cy);
+        ctx.strokeStyle = `rgba(${r},${g},${b},${alpha * depth * 0.85})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      });
+
+      // vertex dots with pulse
+      const pulse = 1 + 0.25 * Math.sin(t * 0.0018 + sh.fp);
+      proj.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x + cx, p.y + cy, 2.2 * pulse, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${r},${g},${b},${alpha * 0.9})`;
+        ctx.fill();
+      });
+    }
+
+
+    /* ══════════════════════════════════════════
+       CONSTELLATION PARTICLES
+    ══════════════════════════════════════════ */
+    const CON_PAL = [[129,140,248],[99,102,241],[167,139,250],[139,92,246],[96,165,250],[34,211,238]];
+    const NUM_P = 58, MAX_D = 118;
     const pts = Array.from({ length: NUM_P }, () => {
-      const c = PALETTE[Math.floor(Math.random() * PALETTE.length)];
-      return {
-        x:  Math.random() * window.innerWidth,
-        y:  Math.random() * window.innerHeight,
-        vx: (Math.random() - 0.5) * 0.38,
-        vy: (Math.random() - 0.5) * 0.38,
-        r:  Math.random() * 1.6 + 0.7,
-        c,
-        a:  0,
-        ta: Math.random() * 0.55 + 0.2,
-      };
+      const c = CON_PAL[Math.floor(Math.random() * CON_PAL.length)];
+      return { x:Math.random()*window.innerWidth, y:Math.random()*window.innerHeight,
+               vx:(Math.random()-.5)*.36, vy:(Math.random()-.5)*.36,
+               r:Math.random()*1.5+.6, c, a:0, ta:Math.random()*.45+.15 };
     });
 
-    let fade = 0; // canvas global fade-in
 
-    function tick() {
+    /* ══════════════════════════════════════════
+       MAIN RENDER LOOP
+    ══════════════════════════════════════════ */
+    let fade = 0;
+    function tick(t) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      if (fade < 1) fade = Math.min(1, fade + 0.0028); // ~6s to reach full opacity
+      if (fade < 1) fade = Math.min(1, fade + 0.003);
 
-      // Draw connections
+      SHAPES.forEach(sh => drawShape(sh, fade, t));
+
       for (let i = 0; i < NUM_P; i++) {
         for (let j = i + 1; j < NUM_P; j++) {
-          const dx = pts[i].x - pts[j].x;
-          const dy = pts[i].y - pts[j].y;
-          const d  = Math.hypot(dx, dy);
+          const d = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
           if (d < MAX_D) {
-            const str = (1 - d / MAX_D) * 0.16 * fade;
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(129,140,248,${str})`;
-            ctx.lineWidth   = 0.7;
+            ctx.strokeStyle = `rgba(129,140,248,${(1-d/MAX_D)*0.13*fade})`;
+            ctx.lineWidth = 0.6;
             ctx.moveTo(pts[i].x, pts[i].y);
             ctx.lineTo(pts[j].x, pts[j].y);
             ctx.stroke();
@@ -243,189 +342,85 @@
         }
       }
 
-      // Draw dots
       pts.forEach(p => {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-        p.a  = Math.min(p.ta, p.a + 0.003);
+        p.x += p.vx; p.y += p.vy;
+        if (p.x<0||p.x>canvas.width)  p.vx*=-1;
+        if (p.y<0||p.y>canvas.height) p.vy*=-1;
+        p.a = Math.min(p.ta, p.a + 0.003);
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${p.c[0]},${p.c[1]},${p.c[2]},${p.a * fade})`;
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(${p.c[0]},${p.c[1]},${p.c[2]},${p.a*fade})`;
         ctx.fill();
       });
 
       requestAnimationFrame(tick);
     }
-    tick();
+    requestAnimationFrame(tick);
 
 
-    /* ═══════════════════════════════════════════
-       ORB INTRO — 5 SECOND ORCHESTRATED REVEAL
-    ═══════════════════════════════════════════ */
-
-    // Orb 1 — indigo, top-left (0ms)
-    anime({
-      targets: '.bg-orb-1',
-      opacity:    [0, 0.9],
-      translateX: [-140, 0],
-      translateY: [-140, 0],
-      scale:      [0.35, 1],
-      duration:   3400,
-      easing:     'easeOutQuart',
-      complete() {
-        anime({
-          targets:  '.bg-orb-1',
-          translateY: [0, -50, 25, 0],
-          translateX: [0, 25, -15, 0],
-          duration:   11000,
-          loop:       true,
-          easing:     'easeInOutSine',
-        });
-      }
+    /* ══════════════════════════════════════════
+       ORB FLOAT ANIMATIONS
+    ══════════════════════════════════════════ */
+    anime({ targets:'.bg-orb-1', opacity:[0,.9], translateX:[-140,0], translateY:[-140,0], scale:[.35,1], duration:3400, easing:'easeOutQuart',
+      complete() { anime({ targets:'.bg-orb-1', translateY:[0,-50,25,0], translateX:[0,25,-15,0], duration:11000, loop:true, easing:'easeInOutSine' }); }
     });
-
-    // Orb 2 — violet, bottom-right (350ms)
-    anime({
-      targets: '.bg-orb-2',
-      opacity:    [0, 0.85],
-      translateX: [150, 0],
-      translateY: [150, 0],
-      scale:      [0.4, 1],
-      duration:   3800,
-      delay:      350,
-      easing:     'easeOutQuart',
-      complete() {
-        anime({
-          targets:  '.bg-orb-2',
-          translateY: [0, 40, -50, 0],
-          translateX: [0, -35, 20, 0],
-          duration:   14000,
-          loop:       true,
-          easing:     'easeInOutSine',
-        });
-      }
+    anime({ targets:'.bg-orb-2', opacity:[0,.85], translateX:[150,0], translateY:[150,0], scale:[.4,1], duration:3800, delay:350, easing:'easeOutQuart',
+      complete() { anime({ targets:'.bg-orb-2', translateY:[0,40,-50,0], translateX:[0,-35,20,0], duration:14000, loop:true, easing:'easeInOutSine' }); }
     });
-
-    // Orb 3 — cyan, bottom-left (700ms)
-    anime({
-      targets: '.bg-orb-3',
-      opacity:    [0, 0.8],
-      translateX: [-100, 0],
-      translateY: [100, 0],
-      scale:      [0.45, 1],
-      duration:   3200,
-      delay:      700,
-      easing:     'easeOutQuart',
-      complete() {
-        anime({
-          targets:  '.bg-orb-3',
-          translateX: [0, 60, -30, 0],
-          translateY: [0, -45, 30, 0],
-          duration:   17000,
-          loop:       true,
-          easing:     'easeInOutSine',
-        });
-      }
+    anime({ targets:'.bg-orb-3', opacity:[0,.8], translateX:[-100,0], translateY:[100,0], scale:[.45,1], duration:3200, delay:700, easing:'easeOutQuart',
+      complete() { anime({ targets:'.bg-orb-3', translateX:[0,60,-30,0], translateY:[0,-45,30,0], duration:17000, loop:true, easing:'easeInOutSine' }); }
     });
-
-    // Orb 4 — pink, top-right (1000ms)
-    anime({
-      targets: '.bg-orb-4',
-      opacity:    [0, 0.75],
-      translateX: [80, 0],
-      translateY: [-80, 0],
-      scale:      [0.3, 1],
-      duration:   2800,
-      delay:      1000,
-      easing:     'easeOutQuart',
-      complete() {
-        anime({
-          targets:  '.bg-orb-4',
-          translateX: [0, -40, 55, 0],
-          translateY: [0, 55, -30, 0],
-          duration:   19000,
-          loop:       true,
-          easing:     'easeInOutSine',
-        });
-      }
+    anime({ targets:'.bg-orb-4', opacity:[0,.75], translateX:[80,0], translateY:[-80,0], scale:[.3,1], duration:2800, delay:1000, easing:'easeOutQuart',
+      complete() { anime({ targets:'.bg-orb-4', translateX:[0,-40,55,0], translateY:[0,55,-30,0], duration:19000, loop:true, easing:'easeInOutSine' }); }
     });
 
 
-    /* ═══════════════════════════════════════════
-       CARD TIMELINE
-    ═══════════════════════════════════════════ */
-    anime.set('.login-card',    { opacity: 0, translateY: 40, scale: 0.97 });
-    anime.set('#anim-logo',     { opacity: 0, translateY: -22 });
-    anime.set('#anim-subtitle', { opacity: 0 });
-    anime.set('#anim-divider',  { opacity: 0, scaleX: 0.4 });
-    anime.set('#anim-field-1',  { opacity: 0, translateX: -20 });
-    anime.set('#anim-field-2',  { opacity: 0, translateX: -20 });
-    anime.set('#anim-btn',      { opacity: 0, translateY: 16 });
-
-    const tl = anime.timeline({ easing: 'easeOutExpo' });
-
-    tl.add({
-      targets:     '.login-card',
-      opacity:     [0, 1],
-      translateY:  [40, 0],
-      scale:       [0.97, 1],
-      duration:    750,
-    })
-    .add({
-      targets:    '#anim-logo',
-      opacity:    [0, 1],
-      translateY: [-22, 0],
-      duration:   520,
-    }, '-=500')
-    .add({
-      targets:  '.login-logo-icon',
-      rotate:   [-10, 0],
-      duration: 650,
-      easing:   'easeOutElastic(1, .65)',
-    }, '-=500')
-    .add({
-      targets:  '#anim-subtitle',
-      opacity:  [0, 1],
-      duration: 400,
-    }, '-=280')
-    .add({
-      targets:  '#anim-divider',
-      opacity:  [0, 1],
-      scaleX:   [0.4, 1],
-      duration: 440,
-      easing:   'easeOutCubic',
-    }, '-=200')
-    .add({
-      targets:    '#anim-field-1',
-      opacity:    [0, 1],
-      translateX: [-20, 0],
-      duration:   380,
-    }, '-=230')
-    .add({
-      targets:    '#anim-field-2',
-      opacity:    [0, 1],
-      translateX: [-20, 0],
-      duration:   380,
-    }, '-=290')
-    .add({
-      targets:    '#anim-btn',
-      opacity:    [0, 1],
-      translateY: [16, 0],
-      duration:   360,
-      easing:     'easeOutBack',
-    }, '-=210');
-
-    // Subtle logo icon pulse (after card fully loads)
-    anime({
-      targets:  '.login-logo-icon',
-      scale:    [1, 1.09, 1],
-      duration: 2600,
-      loop:     true,
-      easing:   'easeInOutSine',
-      delay:    2000,
+    /* ══════════════════════════════════════════
+       MOUSE PARALLAX EN ORBS
+    ══════════════════════════════════════════ */
+    const wraps = [
+      { el:document.getElementById('wrap-1'), s:10 },
+      { el:document.getElementById('wrap-2'), s:16 },
+      { el:document.getElementById('wrap-3'), s:24 },
+      { el:document.getElementById('wrap-4'), s:32 },
+    ];
+    let tmx=0, tmy=0, cmx=0, cmy=0;
+    window.addEventListener('mousemove', e => {
+      tmx = (e.clientX/window.innerWidth  - .5) * 2;
+      tmy = (e.clientY/window.innerHeight - .5) * 2;
     });
+    window.addEventListener('mouseleave', () => { tmx=0; tmy=0; });
+    function parallaxLoop() {
+      cmx += (tmx-cmx)*.055; cmy += (tmy-cmy)*.055;
+      wraps.forEach(({el,s}) => { el.style.transform=`translate(${cmx*s}px,${cmy*s}px)`; });
+      requestAnimationFrame(parallaxLoop);
+    }
+    parallaxLoop();
+
+
+    /* ══════════════════════════════════════════
+       CARD ENTRANCE
+    ══════════════════════════════════════════ */
+    const card = document.querySelector('.login-card');
+    anime.set(card,             { opacity:0, translateY:40, scale:.97 });
+    anime.set('#anim-logo',     { opacity:0, translateY:-22 });
+    anime.set('#anim-subtitle', { opacity:0 });
+    anime.set('#anim-divider',  { opacity:0, scaleX:.4 });
+    anime.set('#anim-field-1',  { opacity:0, translateX:-20 });
+    anime.set('#anim-field-2',  { opacity:0, translateX:-20 });
+    anime.set('#anim-btn',      { opacity:0, translateY:16 });
+
+    anime.timeline({ easing:'easeOutExpo' })
+      .add({ targets:card,              opacity:[0,1], translateY:[40,0], scale:[.97,1], duration:750 })
+      .add({ targets:'#anim-logo',      opacity:[0,1], translateY:[-22,0], duration:520 }, '-=500')
+      .add({ targets:'.login-logo-icon',rotate:[-10,0], duration:650, easing:'easeOutElastic(1,.65)' }, '-=500')
+      .add({ targets:'#anim-subtitle',  opacity:[0,1], duration:400 }, '-=280')
+      .add({ targets:'#anim-divider',   opacity:[0,1], scaleX:[.4,1], duration:440, easing:'easeOutCubic' }, '-=200')
+      .add({ targets:'#anim-field-1',   opacity:[0,1], translateX:[-20,0], duration:380 }, '-=230')
+      .add({ targets:'#anim-field-2',   opacity:[0,1], translateX:[-20,0], duration:380 }, '-=290')
+      .add({ targets:'#anim-btn',       opacity:[0,1], translateY:[16,0], duration:360, easing:'easeOutBack' }, '-=210');
+
+    anime({ targets:'.login-logo-icon', scale:[1,1.09,1], duration:2600, loop:true, easing:'easeInOutSine', delay:2000 });
 
   });
   </script>
