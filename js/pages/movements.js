@@ -10,9 +10,11 @@
       const select = document.getElementById('m-product');
       select.innerHTML = '<option value="">Seleccionar producto...</option>';
       data.products.forEach(p => {
-        select.appendChild(
-          createEl('option', { value: String(p.id) }, `${p.name} (stock: ${p.quantity})`)
-        );
+        const isLow = p.quantity <= p.min_stock;
+        const label = isLow
+          ? `${p.name} (stock: ${p.quantity} ⚠)`
+          : `${p.name} (stock: ${p.quantity})`;
+        select.appendChild(createEl('option', { value: String(p.id) }, label));
       });
     } catch {
       showAlert('form-alert', 'Error al cargar productos');
@@ -29,23 +31,24 @@
     const quantity    = parseInt(document.getElementById('m-quantity').value);
     const description = document.getElementById('m-description').value.trim() || null;
 
-    if (!product_id)              { showAlert('form-alert', 'Seleccioná un producto'); return; }
-    if (!type)                    { showAlert('form-alert', 'Seleccioná el tipo de movimiento'); return; }
+    if (!product_id)                   { showAlert('form-alert', 'Seleccioná un producto'); return; }
+    if (!type)                         { showAlert('form-alert', 'Seleccioná el tipo de movimiento'); return; }
     if (isNaN(quantity) || quantity < 1) { showAlert('form-alert', 'La cantidad debe ser mayor a 0'); return; }
 
-    const submitBtn    = document.getElementById('movement-submit');
+    const submitBtn = document.getElementById('movement-submit');
     submitBtn.disabled = true;
+    submitBtn.classList.add('is-loading');
 
     try {
       await api.createMovement({ product_id: parseInt(product_id), type, quantity, description });
       document.getElementById('movement-form').reset();
       await Promise.all([loadProductSelect(), loadMovements()]);
-      showAlert('form-alert', 'Movimiento registrado correctamente', 'success');
-      setTimeout(() => hideAlert('form-alert'), 3000);
+      showToast('Movimiento registrado correctamente', 'success');
     } catch (err) {
       showAlert('form-alert', err.message || 'Error al registrar el movimiento');
     } finally {
       submitBtn.disabled = false;
+      submitBtn.classList.remove('is-loading');
     }
   });
 
@@ -55,16 +58,20 @@
     tbody.innerHTML = '';
 
     if (movements.length === 0) {
-      const tr = document.createElement('tr');
-      tr.appendChild(createEl('td', { colspan: '6', className: 'empty-state' }, 'Sin movimientos registrados'));
-      tbody.appendChild(tr);
+      tbody.appendChild(emptyStateRow(6, 'Sin movimientos registrados', 'fa-right-left', 'Registrá el primer movimiento con el formulario de arriba'));
       return;
     }
 
     movements.forEach(m => {
-      const tr     = document.createElement('tr');
+      const tr = document.createElement('tr');
+
       const tdType = document.createElement('td');
-      tdType.appendChild(createEl('span', { className: `badge badge-${m.type}` }, m.type));
+      const badge = document.createElement('span');
+      badge.className = `badge badge-${m.type}`;
+      badge.innerHTML = m.type === 'entrada'
+        ? '<i class="fa-solid fa-arrow-down" aria-hidden="true"></i> Entrada'
+        : '<i class="fa-solid fa-arrow-up" aria-hidden="true"></i> Salida';
+      tdType.appendChild(badge);
 
       tr.appendChild(createEl('td', {}, m.product_name));
       tr.appendChild(tdType);

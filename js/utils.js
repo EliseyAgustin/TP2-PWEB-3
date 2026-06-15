@@ -34,6 +34,42 @@ function setText(id, value) {
   if (el) el.textContent = value;
 }
 
+function emptyStateRow(colspan, message, icon = 'fa-inbox', hint = '') {
+  const tr = document.createElement('tr');
+  const td = document.createElement('td');
+  td.setAttribute('colspan', String(colspan));
+  td.className = 'empty-state-td';
+  td.innerHTML = `
+    <div class="empty-state">
+      <i class="fa-solid ${icon} empty-state-icon" aria-hidden="true"></i>
+      <div class="empty-state-title">${sanitize(message)}</div>
+      ${hint ? `<div class="empty-state-desc">${sanitize(hint)}</div>` : ''}
+    </div>`;
+  tr.appendChild(td);
+  return tr;
+}
+
+function showToast(message, type = 'success') {
+  let container = document.getElementById('toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toast-container';
+    container.className = 'toast-container';
+    container.setAttribute('aria-live', 'polite');
+    container.setAttribute('aria-atomic', 'false');
+    document.body.appendChild(container);
+  }
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.setAttribute('role', 'status');
+  toast.innerHTML = `<span class="toast-dot"></span><span>${sanitize(message)}</span>`;
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.classList.add('toast-exit');
+    toast.addEventListener('animationend', () => toast.remove(), { once: true });
+  }, 3500);
+}
+
 function createEl(tag, attrs, text) {
   attrs = attrs || {};
   const el = document.createElement(tag);

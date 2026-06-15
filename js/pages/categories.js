@@ -18,18 +18,24 @@
     const name        = document.getElementById('c-name').value.trim();
     const description = document.getElementById('c-description').value.trim() || null;
 
-    if (!name)          { showAlert('page-alert', 'El nombre de la categoría es requerido'); return; }
+    if (!name)            { showAlert('page-alert', 'El nombre de la categoría es requerido'); return; }
     if (name.length > 50) { showAlert('page-alert', 'El nombre no puede superar los 50 caracteres'); return; }
+
+    const submitBtn = document.querySelector('#category-form button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.classList.add('is-loading');
 
     try {
       await api.createCategory({ name, description });
       document.getElementById('c-name').value        = '';
       document.getElementById('c-description').value = '';
       await loadCategories();
-      showAlert('page-alert', 'Categoría creada correctamente', 'success');
-      setTimeout(() => hideAlert('page-alert'), 3000);
+      showToast('Categoría creada correctamente', 'success');
     } catch (err) {
       showAlert('page-alert', err.message || 'Error al crear la categoría');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('is-loading');
     }
   });
 
@@ -39,8 +45,7 @@
     try {
       await api.deleteCategory(id);
       await loadCategories();
-      showAlert('page-alert', 'Categoría eliminada correctamente', 'success');
-      setTimeout(() => hideAlert('page-alert'), 3000);
+      showToast('Categoría eliminada correctamente', 'success');
     } catch (err) {
       showAlert('page-alert', err.message || 'Error al eliminar la categoría');
     }
@@ -52,9 +57,7 @@
     tbody.innerHTML = '';
 
     if (categories.length === 0) {
-      const tr = document.createElement('tr');
-      tr.appendChild(createEl('td', { colspan: '4', className: 'empty-state' }, 'No hay categorías registradas'));
-      tbody.appendChild(tr);
+      tbody.appendChild(emptyStateRow(4, 'No hay categorías registradas', 'fa-tags', 'Creá la primera categoría con el formulario de arriba'));
       return;
     }
 
@@ -66,9 +69,15 @@
       tr.appendChild(createEl('td', {}, formatDate(c.created_at)));
 
       if (isAdmin) {
-        const tdAct    = document.createElement('td');
-        const delBtn   = createEl('button', { className: 'btn btn-danger btn-sm' }, 'Eliminar');
+        const tdAct = document.createElement('td');
+        tdAct.className = 'td-actions';
+
+        const delBtn = document.createElement('button');
+        delBtn.className = 'btn btn-danger btn-sm';
+        delBtn.innerHTML = '<i class="fa-solid fa-trash" aria-hidden="true"></i> Eliminar';
+        delBtn.setAttribute('aria-label', `Eliminar categoría ${c.name}`);
         delBtn.addEventListener('click', () => deleteCategory(c.id, c.name));
+
         tdAct.appendChild(delBtn);
         tr.appendChild(tdAct);
       }

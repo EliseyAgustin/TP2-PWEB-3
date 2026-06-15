@@ -3,32 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Productos — Stock Almacén</title>
+  <title>Productos — StockApp</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-  <div class="layout">
-    <aside id="sidebar" class="sidebar"></aside>
-    <main class="main-content">
+<div class="layout">
+    <aside id="sidebar" class="sidebar" aria-label="Menú de navegación"></aside>
+
+    <main id="main-content" class="main-content">
 
       <div class="page-header">
         <h1>Productos</h1>
-        <button id="btn-create" class="btn btn-primary hidden">+ Nuevo producto</button>
+        <button id="btn-create" class="btn btn-primary hidden" aria-label="Crear nuevo producto">
+          <i class="fa-solid fa-plus" aria-hidden="true"></i>
+          Nuevo producto
+        </button>
       </div>
 
-      <div id="page-alert" class="alert alert-error"></div>
+      <div id="page-alert" class="alert alert-error" role="alert" aria-live="assertive"></div>
 
-      <div class="table-wrapper">
-        <table>
+      <div class="table-wrapper table--products">
+        <table aria-label="Lista de productos">
           <thead>
             <tr>
-              <th>Nombre</th>
-              <th>Categoría</th>
-              <th>Precio</th>
-              <th>Stock</th>
-              <th>Mín.</th>
-              <th>Estado</th>
-              <th id="actions-header" class="hidden">Acciones</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Categoría</th>
+              <th scope="col">Precio</th>
+              <th scope="col">Stock</th>
+              <th scope="col">Mín.</th>
+              <th scope="col">Estado</th>
+              <th scope="col" id="actions-header" class="hidden">Acciones</th>
             </tr>
           </thead>
           <tbody id="products-tbody">
@@ -40,55 +45,109 @@
     </main>
   </div>
 
-  <!-- Modal crear/editar -->
-  <div id="modal-overlay" class="modal-overlay hidden">
+  <!-- Modal crear/editar producto -->
+  <div id="modal-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal-box">
+
+      <!-- Accent bar -->
+      <div class="modal-accent-bar" aria-hidden="true"></div>
+
+      <!-- Header -->
       <div class="modal-header">
-        <span class="modal-title" id="modal-title">Nuevo producto</span>
-        <button class="modal-close" id="modal-close">&times;</button>
+        <div class="modal-header-info">
+          <div class="modal-icon-badge" aria-hidden="true">
+            <i id="modal-header-icon" class="fa-solid fa-plus"></i>
+          </div>
+          <div>
+            <span class="modal-title" id="modal-title">Nuevo producto</span>
+            <p class="modal-subtitle" id="modal-subtitle">Completá los datos del producto</p>
+          </div>
+        </div>
+        <button class="modal-close" id="modal-close" aria-label="Cerrar ventana">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
       </div>
 
-      <div id="modal-alert" class="alert alert-error"></div>
+      <div id="modal-alert" class="alert alert-error" role="alert" aria-live="assertive"></div>
 
       <form id="product-form" novalidate>
         <input type="hidden" id="product-id">
 
-        <div class="form-group">
-          <label for="p-name">Nombre *</label>
-          <input type="text" id="p-name" class="form-control" maxlength="100" placeholder="Ej: Detergente 1L">
-        </div>
-
-        <div class="form-group">
-          <label for="p-description">Descripción</label>
-          <input type="text" id="p-description" class="form-control" placeholder="Opcional">
-        </div>
-
-        <div class="form-group">
-          <label for="p-category">Categoría</label>
-          <select id="p-category" class="form-control">
-            <option value="">Sin categoría</option>
-          </select>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="p-price">Precio *</label>
-            <input type="number" id="p-price" class="form-control" min="0" step="0.01" placeholder="0.00">
+        <!-- Sección: Información básica -->
+        <div class="modal-section">
+          <div class="modal-section-label" aria-hidden="true">
+            <i class="fa-solid fa-circle-info"></i> Información básica
           </div>
+
           <div class="form-group">
-            <label for="p-quantity">Cantidad *</label>
-            <input type="number" id="p-quantity" class="form-control" min="0" step="1" placeholder="0">
+            <label for="p-name">
+              <i class="fa-solid fa-tag" aria-hidden="true"></i>
+              Nombre <span class="req" aria-label="requerido">*</span>
+            </label>
+            <input type="text" id="p-name" class="form-control" maxlength="100"
+              placeholder="Ej: Detergente 1L" required aria-required="true">
+          </div>
+
+          <div class="form-group">
+            <label for="p-description">
+              <i class="fa-solid fa-align-left" aria-hidden="true"></i>
+              Descripción
+            </label>
+            <input type="text" id="p-description" class="form-control" placeholder="Opcional">
+          </div>
+
+          <div class="form-group" style="margin-bottom:0">
+            <label for="p-category">
+              <i class="fa-solid fa-folder" aria-hidden="true"></i>
+              Categoría
+            </label>
+            <select id="p-category" class="form-control">
+              <option value="">Sin categoría</option>
+            </select>
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="p-min-stock">Stock mínimo</label>
-          <input type="number" id="p-min-stock" class="form-control" min="0" step="1" placeholder="10">
+        <!-- Sección: Inventario -->
+        <div class="modal-section">
+          <div class="modal-section-label" aria-hidden="true">
+            <i class="fa-solid fa-boxes-stacked"></i> Inventario
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="p-price">
+                <i class="fa-solid fa-dollar-sign" aria-hidden="true"></i>
+                Precio <span class="req" aria-label="requerido">*</span>
+              </label>
+              <input type="number" id="p-price" class="form-control" min="0" step="0.01"
+                placeholder="0.00" required aria-required="true">
+            </div>
+            <div class="form-group">
+              <label for="p-quantity">
+                <i class="fa-solid fa-cubes" aria-hidden="true"></i>
+                Cantidad <span class="req" aria-label="requerido">*</span>
+              </label>
+              <input type="number" id="p-quantity" class="form-control" min="0" step="1"
+                placeholder="0" required aria-required="true">
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom:0">
+            <label for="p-min-stock">
+              <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+              Stock mínimo
+            </label>
+            <input type="number" id="p-min-stock" class="form-control" min="0" step="1" placeholder="10">
+          </div>
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" id="modal-cancel">Cancelar</button>
-          <button type="submit" class="btn btn-primary" id="modal-submit">Guardar</button>
+          <button type="button" class="btn btn-secondary" id="modal-cancel">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i> Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary" id="modal-submit">
+            <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> Guardar
+          </button>
         </div>
       </form>
     </div>

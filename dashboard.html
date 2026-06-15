@@ -3,46 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard — Stock Almacén</title>
+  <title>Dashboard — StockApp</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-  <div class="layout">
-    <aside id="sidebar" class="sidebar"></aside>
-    <main class="main-content">
+<div class="layout">
+    <aside id="sidebar" class="sidebar" aria-label="Menú de navegación"></aside>
+
+    <main id="main-content" class="main-content">
 
       <div class="page-header">
         <h1>Dashboard</h1>
       </div>
 
-      <div id="low-stock-alert" class="alert alert-warning"></div>
+      <div id="low-stock-alert" class="alert alert-warning" role="alert" aria-live="polite"></div>
 
-      <div class="stats-grid">
+      <div class="stats-grid" role="region" aria-label="Resumen de estadísticas">
+
         <div class="stat-card">
-          <div class="stat-value" id="total-products">—</div>
+          <div class="stat-icon" aria-hidden="true">
+            <i class="fa-solid fa-boxes-stacked"></i>
+          </div>
+          <div class="stat-value" id="total-products" aria-label="Total de productos">—</div>
           <div class="stat-label">Productos en stock</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-value" id="low-stock-count" style="color:var(--warning)">—</div>
+
+        <div class="stat-card stat-card--warning">
+          <div class="stat-icon" aria-hidden="true">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+          <div class="stat-value" id="low-stock-count" aria-label="Productos con stock bajo">—</div>
           <div class="stat-label">Con stock bajo</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-value" id="total-movements">—</div>
+
+        <div class="stat-card stat-card--success">
+          <div class="stat-icon" aria-hidden="true">
+            <i class="fa-solid fa-right-left"></i>
+          </div>
+          <div class="stat-value" id="total-movements" aria-label="Total de movimientos">—</div>
           <div class="stat-label">Movimientos registrados</div>
         </div>
+
       </div>
 
       <div class="section-card">
-        <div class="section-title">Últimos movimientos</div>
-        <div class="table-wrapper">
-          <table>
+        <div class="section-title">
+          <i class="fa-solid fa-clock-rotate-left" aria-hidden="true" style="color:var(--text-muted)"></i>
+          Últimos movimientos
+        </div>
+        <div class="table-wrapper table--movements">
+          <table aria-label="Últimos movimientos de stock">
             <thead>
               <tr>
-                <th>Producto</th>
-                <th>Tipo</th>
-                <th>Cantidad</th>
-                <th>Usuario</th>
-                <th>Fecha</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Usuario</th>
+                <th scope="col">Fecha</th>
               </tr>
             </thead>
             <tbody id="recent-movements">
